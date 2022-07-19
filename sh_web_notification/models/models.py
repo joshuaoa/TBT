@@ -58,4 +58,4 @@ class Annoucement(models.Model):
                             {'type': 'simple_notification', 'title': _('Notitification'), 'message': CODE_SOUND_FAIL + self.description_text, 'sticky': True, 'warning': False}  # sorted to make deterministic for tests
                         ])
                 
-        self.env['bus.bus'].sendmany(notifications)
+        self.env['bus.bus']._sendmany(notifications)
