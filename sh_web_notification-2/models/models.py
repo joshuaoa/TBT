@@ -57,5 +57,5 @@ class Annoucement(models.Model):
                             user.partner_id,'simple_notification',
                             {'title': _('Notitification'), 'message': CODE_SOUND_FAIL + str(self.description_text)}  # sorted to make deterministic for tests
                         ))
-                
+                #new commit change
         self.env['bus.bus']._sendmany(notifications)
