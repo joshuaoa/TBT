@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="menu_notification_view" model="website.menu">
+            <field name="name">Notifications</field>
+            <field name="url">/notification_web</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <template id="view_notification" name="View Notification">
+            <title>Notifications</title>
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <t t-if="not notifications">
+                                <h2><center><p><b>There are currently no notifications for your account.</b></p></center></h2>
+                            </t>
+                                    <t t-if="notifications" t-call="portal.portal_table">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>ID</th>
+                                                <th class="text-right">Date</th>
+                                                <th class="text-right">Title</th>
+                                               <th class="text-right">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <t t-foreach="notifications" t-as="notification">
+                                            <tr>
+                                                    <td>
+                                                        <span t-field="notification.notification_id"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="notification.notification_date"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="notification.title"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="notification.notes"/>
+                                                    </td>
+                                            </tr>
+                                        </t>
+
+                                    </t>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+</odoo>
