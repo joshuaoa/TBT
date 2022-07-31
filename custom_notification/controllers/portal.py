@@ -11,7 +11,7 @@ class Notification(http.Controller):
         Notifications = http.request.env['custom.notification']
         current_user_id = request.env.user.id
         return http.request.render('custom_notification.view_notification', {
-                'notifications': Notifications.search([('user_ids','=',current_user_id),('state','in',['posted']),('active','=',True)])
+                'notifications': Notifications.search([('user_ids','=',current_user_id),('state','in',['posted']),('active','=',True)], order='notification_date desc')
             })
 
     @http.route('/notification_web/<model("custom.notification"):notification>/', type="http", auth="user", website=True)

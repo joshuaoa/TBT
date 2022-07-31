@@ -14,22 +14,22 @@
                                     <t t-if="notifications" t-call="portal.portal_table">
                                         <thead>
                                             <tr class="active">
-                                                <th>ID</th>
-                                                <th class="text-right">Date</th>
-                                                <th class="text-right">Title</th>
+                                                <th class="text-center">ID</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Title</th>
                                             </tr>
                                         </thead>
                                         <t t-foreach="notifications" t-as="notification">
                                             <tr>
-                                                    <td>
-                                                        <a t-attf-href="/notification_web/{{ slug(notification)}}" class="btn btn-primary">
+                                                    <td class="text-center">
+                                                        <a t-attf-href="/notification_web/{{ slug(notification)}}">
                                                         <t t-esc="notification.notification_id"/>
                                                         </a>
                                                     </td>
-                                                    <td class="text-right">
-                                                        <span t-field="notification.notification_date"/>
+                                                    <td class="text-center">
+                                                        <span t-field="notification.notification_date" t-options="{'widget': 'date'}"/>
                                                     </td>
-                                                    <td class="text-right">
+                                                    <td class="text-center">
                                                         <span t-field="notification.title"/>
                                                     </td>
                                             </tr>
@@ -48,7 +48,7 @@
                 <div class="oe_structure">
                     <div class="container">
                         <div class="card-body">
-                                <h3>NOTIFICATION ID # <t t-esc="notification.notification_id"/> </h3>
+                            <h4><b>NOTIFICATION ID # <t t-esc="notification.notification_id"/></b> </h4>
                                 <p><h4><t t-esc="notification.title"/> </h4></p>
                                 <p><t t-esc="notification.notes"/></p>
                         </div>

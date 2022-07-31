@@ -34,7 +34,7 @@
 			<field name="name">custom.notification.tree</field>
 			<field name="model">custom.notification</field>
 			<field name="arch" type="xml">
-				<tree>
+				<tree default_order="id desc">
 					<field name="notification_id"/>
                     <field name="notification_date"/>
 					<field name="title"/>

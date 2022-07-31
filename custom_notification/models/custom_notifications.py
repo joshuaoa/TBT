@@ -11,7 +11,7 @@ class CustomNotification(models.Model):
     user_ids = fields.Many2many('res.users', 'notification_user_rel', 'notification_id', 'user_id', string="Users", states=STATES)
     title = fields.Char(string="Title", states=STATES)
     notes = fields.Text(string="Notes", states=STATES)
-    notification_date = fields.Datetime(string="Date", default=fields.Datetime.now(), states=STATES)
+    notification_date = fields.Date(string="Date", default=fields.Date.today(), states=STATES)
     active = fields.Boolean("Active", default=True)
     notification_id = fields.Char(string='Notification ID', required=True, copy=False, readonly=True, index=True,
                            default=lambda self: _('New'))
