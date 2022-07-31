@@ -12,7 +12,7 @@
     """,
     "images": [],
     "depends": [
-                "website"
+                "website","portal"
                 ],
     "data": [
                 'security/security.xml',
