@@ -50,7 +50,7 @@
                         <div class="card-body">
                                 <h3>NOTIFICATION ID # <t t-esc="notification.notification_id"/> </h3>
                                 <p><h4><t t-esc="notification.title"/> </h4></p>
-                                <p><t t-esc="notification.title"/></p>
+                                <p><t t-esc="notification.notes"/></p>
                         </div>
                     </div>
                 </div>
