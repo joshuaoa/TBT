@@ -9,19 +9,19 @@
                                     <t t-set="title">Notifications</t>
                                 </t>
                                  <t t-if="not notifications">
-                                    <h3><center><p><b>There are currently no notifications for your account.</b></p></center></h3>
+                                    <h5><center><p><b>There are currently no notifications for your account.</b></p></center></h5>
                                  </t>
                                     <t t-if="notifications" t-call="portal.portal_table">
                                         <thead>
                                             <tr class="active">
-                                                <th class="text-center">ID</th>
+                                                <th>ID</th>
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Title</th>
                                             </tr>
                                         </thead>
                                         <t t-foreach="notifications" t-as="notification">
                                             <tr>
-                                                    <td class="text-center">
+                                                    <td>
                                                         <a t-attf-href="/notification_web/{{ slug(notification)}}">
                                                         <t t-esc="notification.notification_id"/>
                                                         </a>
