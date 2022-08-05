@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+        <template id="portal_my_home_menu_notification" name="Portal layout : notification menu entries" inherit_id="portal.portal_breadcrumbs" priority="10">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'notification'" t-attf-class="breadcrumb-item #{'active ' if not notification else ''}">
+                    <a t-if="notification" t-attf-href="/notification_web?{{ keep_query() }}">Notifications</a>
+                    <t t-else="">Notifications</t>
+                </li>
+                <li t-if="notification" class="breadcrumb-item active">
+                    <span t-field="notification.notification_id"/>
+                </li>
+            </xpath>
+        </template>
+
         <template id="view_notification" name="View Notification">
                             <t t-call="portal.portal_layout">
                                 <t t-set="breadcrumbs_searchbar" t-value="True"/>
@@ -43,19 +55,50 @@
 <!--                </div>-->
         </template>
 
-        <template id="display_notification_details" name="Display Notification Details">
+<!--        <template id="display_notification_details" name="Display Notification Details">-->
+<!--            <t t-call="portal.portal_layout">-->
+<!--&lt;!&ndash;                <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <t t-call="portal.portal_back_in_edit_mode">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <t t-set="backend_url" t-value="'/web#model=custom.notification&amp;id=%s&amp;view_type=form' % (notification.id)"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                </t>&ndash;&gt;-->
+<!--                <div class="oe_structure">-->
+<!--                    <div class="container">-->
+<!--                        <div class="card-body">-->
+<!--                            <h4><b>NOTIFICATION ID # <t t-esc="notification.notification_id"/></b> </h4>-->
+<!--                                <p><h4><t t-esc="notification.title"/> </h4></p>-->
+<!--                                <p><t t-esc="notification.notes"/></p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </template>-->
+
+         <template id="display_notification_details" name="Notification Details">
             <t t-call="portal.portal_layout">
-                <div class="oe_structure">
-                    <div class="container">
-                        <div class="card-body">
-                            <h4><b>NOTIFICATION ID # <t t-esc="notification.notification_id"/></b> </h4>
+                <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">
+                    <t t-call="portal.portal_back_in_edit_mode">
+                        <t t-set="backend_url" t-value="'/web#model=custom.notification&amp;id=%s&amp;view_type=form' % (notification.id)"/>
+                    </t>
+                </t>
+
+                <t t-call="portal.portal_record_layout">
+                    <t t-set="card_header">
+                        <h5 class="mb-0">
+                            <small class="text-muted">Notification - </small><span t-field="notification.notification_id"/>
+                            <span class="float-right"></span>
+                        </h5>
+                    </t>
+                    <t t-set="card_body">
+                         <h4><b>NOTIFICATION ID # <t t-esc="notification.notification_id"/></b> </h4>
                                 <p><h4><t t-esc="notification.title"/> </h4></p>
                                 <p><t t-esc="notification.notes"/></p>
-                        </div>
-                    </div>
-                </div>
+                    </t>
+                </t>
+
             </t>
         </template>
+
 
         <template id="portal_notifications" name="Show Notifications" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
             <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
