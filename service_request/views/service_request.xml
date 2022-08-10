@@ -32,7 +32,7 @@
 						<group string="Service Details">
 							<field name="details_ids" nolabel="1">
 								<tree editable="bottom">
-                                    <field name="name" />
+                                    <field name="product_id" />
                                     <field name="description"/>
                                     <field name="quantity"/>
                                     <field name="remarks"/>
