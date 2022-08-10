@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<record id="service_request_form" model="ir.ui.view">
+			<field name="name">service.request.form</field>
+			<field name="model">service.request</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_submit" string="Submit" type="object" class="btn-primary" states="draft"/>
+						<button name="action_process" string="Process" type="object" class="btn-primary" states="submitted"/>
+						<button name="action_done" string="Done" type="object" class="btn-primary" states="processed"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,submitted,processed,done"/>
+                    </header>
+					<sheet>
+						<div class="oe_title">
+                            <h1>
+                                <field name="request_id"/>
+                            </h1>
+                        </div>
+						<group string="Agency Details">
+							<group>
+								<field name="agency"/>
+								<field name="imdg_code"/>
+							</group>
+							<group>
+								<field name="agent"/>
+								<field name="phone"/>
+								<field name="email"/>
+							</group>
+						</group>
+						<group string="Service Details">
+							<field name="details_ids" nolabel="1">
+								<tree editable="bottom">
+                                    <field name="product_id" />
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="remarks"/>
+                                </tree>
+							</field>
+						</group>
+					</sheet>
+				</form>
+		  	</field>
+		</record>
+
+		<record id="service_request_tree" model="ir.ui.view">
+			<field name="name">service.request.tree</field>
+			<field name="model">service.request</field>
+			<field name="arch" type="xml">
+				<tree default_order="id desc">
+					<field name="agency"/>
+					<field name="agent"/>
+					<field name="imdg_code"/>
+					<field name="phone"/>
+					<field name="email"/>
+					<field name="state" decoration-danger="state=='draft'" decoration-warning="state=='submitted'" decoration-info="state=='processed'" decoration-success="state=='done'"
+                            widget="badge"/>
+				</tree>
+		  	</field>
+		</record>
+
+
+			<!-- ACTION -->
+		<record id='service_request_action' model='ir.actions.act_window'>
+			<field name="name">Service Request</field>
+			<field name="res_model">service.request</field>
+			<field name="view_mode">tree,form</field>
+			<field name="type">ir.actions.act_window</field>
+		</record>
+
+
+
+		<!-- MENU ITEM -->
+	<menuitem id="service_request_menuitem"
+			  name="Service Request"
+			action="service_request_action"
+			sequence="10" />
+
+</odoo>
