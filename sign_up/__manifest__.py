@@ -13,11 +13,9 @@
     "images": [],
     "depends": [
         "auth_signup",
-        "base"
     ],
     "data": [
         'views/sign_up.xml',
-        # 'views/res_users.xml',
         'views/res_partner.xml',
     ],
     "application": True,
