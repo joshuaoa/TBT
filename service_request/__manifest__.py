@@ -16,6 +16,8 @@
                 'data/sequence.xml',
                 'security/ir.model.access.csv',
                 'views/service_request.xml',
+                'views/form_success.xml',
+                'views/portal.xml',
     ],
     "application": True,
     "installable": True,

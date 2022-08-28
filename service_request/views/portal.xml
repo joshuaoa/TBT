@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_requests" name="Show Requests" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Service Requests</t>
+                <t t-set="url" t-value="'/view_requests'"/>
+                <t t-set="placeholder_count" t-value="'service_request_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="portal_my_home_menu_request" name="Portal layout : service request menu entries" inherit_id="portal.portal_breadcrumbs" priority="10">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'request'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
+                    <a t-if="request" t-attf-href="/view_requests?{{ keep_query() }}">Service Requests</a>
+                    <t t-else="">Service Requests</t>
+                </li>
+            </xpath>
+    </template>
+
+
+
+    <template id="view_requests" name="View Service Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Service Requests</t>
+                <a href="/service_requests" class="btn btn-default pull-left">
+                    <span class="fa fa-plus"> Create New Service Request</span>
+                </a>
+            </t>
+            <t t-if="not requests">
+                <h5><center><p><b>There are currently no Service Requests for your account.</b></p></center></h5>
+            </t>
+            <t t-if="requests" t-call="portal.portal_table" editable="top">
+                <thead>
+                    <tr class="active">
+                        <th>ID</th>
+                        <th class="text-center">Agency</th>
+                        <th class="text-center">Agent</th>
+                        <th class="text-center">IMDG Code / UN No.</th>
+                        <th class="text-center">Phone</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="requests" t-as="request">
+                    <tr>
+                        <td>
+                            <t t-esc="request.request_id"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="request.agency"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="request.agent"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="request.imdg_code"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="request.phone"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="request.email"/>
+                        </td>
+                        <td class="text-center">
+<!--                            <a t-if="notification.state == 'approved'" t-attf-href="/clearance">-->
+                                <span t-field="request.state"/>
+<!--                            </a>-->
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="online_request_form">
+       <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+               <t t-call="portal.portal_searchbar">
+               <t t-set="title">Service Request</t>
+            </t>
+           <div id="wrap" class="oe_structure oe_empty">
+               <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                   <div class="container">
+                       <form action="/submit/request" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
+                           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                           <table style="border:0px; width:100%%; background-color:#D6EEEE; margin-top:5%%;">
+                               <group>
+                                    <tr>
+                                        <td>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">Agency</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select name="agency" t-attf-class="form-control s_website_form_input" required="1">
+                                                        <option value=""><i>Please Select</i></option>
+                                                        <t t-foreach="agencies or []" t-as="agency">
+                                                            <option t-att-value="agency.id">
+                                                                <t t-esc="agency.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </group>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">Agent</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select name="agent" t-attf-class="form-control s_website_form_input" required="1">
+                                                        <option value=""><i>Please Select</i></option>
+                                                        <t t-foreach="agents or []" t-as="agent">
+                                                            <option t-att-value="agent.id">
+                                                                <t t-esc="agent.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </group>
+                                        </td>
+                                        <td>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
+                                                    <span class="s_website_form_label_content"> IMDG Code / Un No.</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="imdg_code" type="text" class="form-control s_website_form_input" name="imdg_code" required="1"/>
+                                                </div>
+                                            </group>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
+                                                    <span class="s_website_form_label_content">Phone</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="phone" type="text" class="form-control s_website_form_input" name="phone" required="1"/>
+                                                </div>
+                                            </group>
+                                        </td>
+                                    </tr>
+                               </group>
+                               <tr>
+                                   <td>
+                                       <group>
+                                           <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
+                                               <span class="s_website_form_label_content">Email</span>
+                                               <span class="s_website_form_mark"> *</span>
+                                           </label>
+                                           <div class="col-sm">
+                                               <input id="email" type="text" class="form-control s_website_form_input" name="email" required="1"/>
+                                           </div>
+                                       </group>
+                                   </td>
+                               </tr>
+                           </table>
+                           <div style="width:200px; margin-top:2%%;" class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                               <div class="s_website_form_label"/>
+                               <button type="submit" class="btn btn-primary">Submit</button>
+                           </div>
+                       </form>
+                   </div>
+               </section>
+           </div>
+       </t>
+    </template>
+</odoo>
