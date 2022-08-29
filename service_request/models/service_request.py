@@ -47,7 +47,7 @@ class ServiceDetails(models.Model):
     description = fields.Char(string="Description")
     quantity = fields.Integer(string="Quantity")
     remarks = fields.Text(string="Remarks")
-    service_id = fields.Many2one('service.request')
+    service_id = fields.Many2one('service.request', string="Services")
     product_id = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
                                  string="Service", required=True)
 
