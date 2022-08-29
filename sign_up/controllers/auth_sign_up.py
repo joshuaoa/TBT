@@ -62,6 +62,6 @@ class AuthSignup(AuthSignupHome):
         response.headers['X-Frame-Options'] = 'DENY'
         return response
 
-    def get_auth_signup_qcontext(self):
-        SIGN_UP_REQUEST_PARAMS.update({'gpha_id','agency'})
-        return super().get_auth_signup_qcontext()
+    # def get_auth_signup_qcontext(self):
+    #     SIGN_UP_REQUEST_PARAMS.update({'gpha_id','agency'})
+    #     return super().get_auth_signup_qcontext()
