@@ -26,16 +26,22 @@ class WebsiteForm(http.Controller):
 
     @http.route('/service_requests', type='http', auth="user", website=True)
     def service_request(self):
-        products = request.env['product.template'].sudo().search([])
-        agencies = request.env['res.partner'].sudo().search([])
-        agents = request.env['res.users'].sudo().search([])
+        current_user = request.env.user
+        user_partner = current_user.parent_id
+        products = request.env['product.template'].sudo().search([('detailed_type', '=', 'service')])
+        agencies = request.env['res.partner'].sudo().search([('is_company', '=', True),('id','!=',user_partner.id)])
+        agents = request.env['res.users'].sudo().search([('id','!=',current_user.id)])
+
+
 
         values = {}
         values.update({
             'products': products,
             'agencies': agencies,
             'agents':agents,
-            'page_name': 'new_request',
+            'current_user':current_user,
+            'user_partner':user_partner,
+            'page_name': 'newrequest',
         })
         return request.render("service_request.online_request_form", values)
 
@@ -44,7 +50,8 @@ class WebsiteForm(http.Controller):
         request_ids = request.env['service.request'].sudo().create(kw)
         for service in request_ids: service.state = 'submitted'
         return request.render("service_request.tmp_customer_form_success", {
-            'request_ids': request_ids})
+            'request_ids': request_ids,
+        })
 
 
 class ServicePortal(CustomerPortal):
