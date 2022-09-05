@@ -18,7 +18,7 @@
                 'views/service_request.xml',
                 'views/form_success.xml',
                 'views/portal.xml',
-                'views/product_template.xml',
+                'views/product.xml',
     ],
     "application": True,
     "installable": True,

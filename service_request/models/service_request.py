@@ -20,27 +20,27 @@ class ServiceRequest(models.Model):
     description_1 = fields.Char(string="Description")
     quantity_1 = fields.Integer(string="Quantity")
     remarks_1 = fields.Text(string="Remarks")
-    product_id_1 = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id_1 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     description_2 = fields.Char(string="Description")
     quantity_2 = fields.Integer(string="Quantity")
     remarks_2 = fields.Text(string="Remarks")
-    product_id_2 = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id_2 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     description_3 = fields.Char(string="Description")
     quantity_3 = fields.Integer(string="Quantity")
     remarks_3 = fields.Text(string="Remarks")
-    product_id_3 = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id_3 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     description_4 = fields.Char(string="Description")
     quantity_4 = fields.Integer(string="Quantity")
     remarks_4 = fields.Text(string="Remarks")
-    product_id_4 = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id_4 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     description_5 = fields.Char(string="Description")
     quantity_5 = fields.Integer(string="Quantity")
     remarks_5 = fields.Text(string="Remarks")
-    product_id_5 = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id_5 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     populated = fields.Boolean(string="Populated", readonly=True)
 
@@ -119,7 +119,7 @@ class ServiceRequest(models.Model):
                         'product_uom_qty': line.quantity
                         }
                 lines.append((0,0, vals))
-            self.env['sale.order'].sudo().create(
+            self.env['sale.order'].create(
                 {
                     'partner_id': self.agent.partner_id.id,
                     'order_line': lines
@@ -135,12 +135,12 @@ class ServiceDetails(models.Model):
     quantity = fields.Integer(string="Quantity")
     remarks = fields.Text(string="Remarks")
     service_id = fields.Many2one('service.request', string="Services")
-    product_id = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
+    product_id = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
 
 
 class Product(models.Model):
-    _inherit = "product.template"
+    _inherit = "product.product"
 
     product_type = fields.Selection([
         ('fixed','Fixed'),

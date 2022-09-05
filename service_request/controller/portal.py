@@ -28,7 +28,7 @@ class WebsiteForm(http.Controller):
     def service_request(self):
         current_user = request.env.user
         user_partner = current_user.parent_id
-        products = request.env['product.template'].sudo().search([('detailed_type', '=', 'service')])
+        products = request.env['product.product'].sudo().search([('detailed_type', '=', 'service')])
         agencies = request.env['res.partner'].sudo().search([('is_company', '=', True),('id','!=',user_partner.id)])
         agents = request.env['res.users'].sudo().search([('id','!=',current_user.id)])
 
