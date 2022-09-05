@@ -115,6 +115,7 @@ class ServiceRequest(models.Model):
             lines = []
             for line in rec.details_ids:
                 vals = {'product_id': line.product_id.id,
+                        'name': line.description,
                         'product_uom_qty': line.quantity
                         }
                 lines.append((0,0, vals))
@@ -124,7 +125,6 @@ class ServiceRequest(models.Model):
                     'order_line': lines
                 }
             )
-
 
 
 class ServiceDetails(models.Model):
@@ -137,6 +137,17 @@ class ServiceDetails(models.Model):
     service_id = fields.Many2one('service.request', string="Services")
     product_id = fields.Many2one('product.template', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
+
+
+class Product(models.Model):
+    _inherit = "product.template"
+
+    product_type = fields.Selection([
+        ('fixed','Fixed'),
+        ('variable', 'Variable')
+    ],default='fixed', string="Service Type")
+
+
 
 
 

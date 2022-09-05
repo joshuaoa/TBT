@@ -32,8 +32,6 @@ class WebsiteForm(http.Controller):
         agencies = request.env['res.partner'].sudo().search([('is_company', '=', True),('id','!=',user_partner.id)])
         agents = request.env['res.users'].sudo().search([('id','!=',current_user.id)])
 
-
-
         values = {}
         values.update({
             'products': products,
