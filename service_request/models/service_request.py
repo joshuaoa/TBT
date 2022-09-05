@@ -119,7 +119,7 @@ class ServiceRequest(models.Model):
                         'product_uom_qty': line.quantity
                         }
                 lines.append((0,0, vals))
-            self.env['sale.order'].create(
+            self.env['sale.order'].sudo().create(
                 {
                     'partner_id': self.agent.partner_id.id,
                     'order_line': lines
