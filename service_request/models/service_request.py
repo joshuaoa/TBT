@@ -148,6 +148,15 @@ class Product(models.Model):
     ],default='fixed', string="Service Type")
 
 
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    product_type = fields.Selection([
+        ('fixed', 'Fixed'),
+        ('variable', 'Variable')
+    ], default='fixed', string="Service Type")
+
+
 
 
 

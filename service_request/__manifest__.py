@@ -19,6 +19,7 @@
                 'views/form_success.xml',
                 'views/portal.xml',
                 'views/product.xml',
+                'views/product_template.xml',
     ],
     "application": True,
     "installable": True,
