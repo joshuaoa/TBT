@@ -198,7 +198,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.default_code" />
+                                                                <t t-esc="product.display_name" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -238,7 +238,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.default_code" />
+                                                                <t t-esc="product.display_name" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -278,7 +278,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.default_code" />
+                                                                <t t-esc="product.display_name" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -318,7 +318,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.default_code" />
+                                                                <t t-esc="product.display_name" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -358,7 +358,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.default_code" />
+                                                                <t t-esc="product.display_name" />
                                                             </option>
                                                         </t>
                                                     </select>

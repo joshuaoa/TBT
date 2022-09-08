@@ -115,7 +115,7 @@ class ServiceRequest(models.Model):
             lines = []
             for line in rec.details_ids:
                 vals = {'product_id': line.product_id.id,
-                        'name': line.description,
+                        # 'name': line.description,
                         'product_uom_qty': line.quantity
                         }
                 lines.append((0,0, vals))
