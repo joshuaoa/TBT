@@ -18,8 +18,16 @@
                     <a t-if="request" t-attf-href="/view_requests?{{ keep_query() }}">Service Requests</a>
                     <t t-else="">Service Requests</t>
                 </li>
-                 <li t-if="page_name == 'newrequest'" class="breadcrumb-item active">
-                    <span>New Request</span>
+            </xpath>
+    </template>
+
+    <template id="portal_my_home_menu_create_request" name="Portal layout : New Service Request" inherit_id="portal.portal_breadcrumbs" priority="10">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'newrequest'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
+                    <a t-attf-href="/view_requests?{{ keep_query() }}">Service Requests </a>
+                </li>
+                <li t-if="page_name == 'newrequest'">
+                    <b style="color:grey;">/ New Request</b>
                 </li>
             </xpath>
     </template>
@@ -190,7 +198,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.name" />
+                                                                <t t-esc="product.default_code" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -230,7 +238,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.name" />
+                                                                <t t-esc="product.default_code" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -270,7 +278,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.name" />
+                                                                <t t-esc="product.default_code" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -310,7 +318,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.name" />
+                                                                <t t-esc="product.default_code" />
                                                             </option>
                                                         </t>
                                                     </select>
@@ -350,7 +358,7 @@
                                                         <option value=""><i>Please Select</i></option>
                                                         <t t-foreach="products or []" t-as="product">
                                                             <option t-att-value="product.id">
-                                                                <t t-esc="product.name" />
+                                                                <t t-esc="product.default_code" />
                                                             </option>
                                                         </t>
                                                     </select>
