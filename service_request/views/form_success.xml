@@ -1,6 +1,6 @@
 <odoo>
     <template id="tmp_customer_form_success" name="Customer Form Successfully Submitted">
-            <t t-call="website.layout">
+            <t t-call="portal.portal_layout">
                 <div id="wrap">
                     <div class="container">
                         <div class="col-md-12">

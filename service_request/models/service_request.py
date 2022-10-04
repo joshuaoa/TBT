@@ -43,6 +43,7 @@ class ServiceRequest(models.Model):
     product_id_5 = fields.Many2one('product.product', domain=[('detailed_type', '=', 'service')],
                                  string="Service")
     populated = fields.Boolean(string="Populated", readonly=True)
+    dos = fields.Date(string="Date of Service")
 
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -145,7 +146,7 @@ class Product(models.Model):
     product_type = fields.Selection([
         ('fixed','Fixed'),
         ('variable', 'Variable')
-    ],default='fixed', string="Service Type")
+    ],default='variable', string="Service Type")
 
 
 class ProductTemplate(models.Model):

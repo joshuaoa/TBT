@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="portal_requests" name="Show Requests" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+    <template id="portal_requests" name="Show Requests" customize_show="True" inherit_id="portal.portal_my_home"
+              priority="1">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Service Requests</t>
@@ -12,26 +13,27 @@
     </template>
 
 
-    <template id="portal_my_home_menu_request" name="Portal layout : service request menu entries" inherit_id="portal.portal_breadcrumbs" priority="10">
-            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-                <li t-if="page_name == 'request'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
-                    <a t-if="request" t-attf-href="/view_requests?{{ keep_query() }}">Service Requests</a>
-                    <t t-else="">Service Requests</t>
-                </li>
-            </xpath>
+    <template id="portal_my_home_menu_request" name="Portal layout : service request menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="10">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'request'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
+                <a t-if="request" t-attf-href="/view_requests?{{ keep_query() }}">Service Requests</a>
+                <t t-else="">Service Requests</t>
+            </li>
+        </xpath>
     </template>
 
-    <template id="portal_my_home_menu_create_request" name="Portal layout : New Service Request" inherit_id="portal.portal_breadcrumbs" priority="10">
-            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-                <li t-if="page_name == 'newrequest'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
-                    <a t-attf-href="/view_requests?{{ keep_query() }}">Service Requests </a>
-                </li>
-                <li t-if="page_name == 'newrequest'">
-                    <b style="color:grey;">/ New Request</b>
-                </li>
-            </xpath>
+    <template id="portal_my_home_menu_create_request" name="Portal layout : New Service Request"
+              inherit_id="portal.portal_breadcrumbs" priority="10">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'newrequest'" t-attf-class="breadcrumb-item #{'active ' if not request else ''}">
+                <a t-attf-href="/view_requests?{{ keep_query() }}">Service Requests</a>
+            </li>
+            <li t-if="page_name == 'newrequest'">
+                <b style="color:grey;">/ New Request</b>
+            </li>
+        </xpath>
     </template>
-
 
 
     <template id="view_requests" name="View Service Requests">
@@ -40,11 +42,17 @@
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">Service Requests</t>
                 <a href="/service_requests" class="btn btn-default pull-left">
-                    <span class="fa fa-plus" style="color:green;"> Create New Service Request</span>
+                    <span class="fa fa-plus" style="color:green;">Create New Service Request</span>
                 </a>
             </t>
             <t t-if="not requests">
-                <h5><center><p><b>There are currently no Service Requests for your account.</b></p></center></h5>
+                <h5>
+                    <center>
+                        <p>
+                            <b>There are currently no Service Requests for your account.</b>
+                        </p>
+                    </center>
+                </h5>
             </t>
             <t t-if="requests" t-call="portal.portal_table" editable="top">
                 <thead>
@@ -79,9 +87,9 @@
                             <span t-field="request.email"/>
                         </td>
                         <td class="text-center">
-<!--                            <a t-if="notification.state == 'approved'" t-attf-href="/clearance">-->
-                                <span t-field="request.state"/>
-<!--                            </a>-->
+                            <!--                            <a t-if="notification.state == 'approved'" t-attf-href="/clearance">-->
+                            <span t-field="request.state"/>
+                            <!--                            </a>-->
                         </td>
                     </tr>
                 </t>
@@ -91,311 +99,386 @@
 
 
     <template id="online_request_form">
-       <t t-call="portal.portal_layout">
+        <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
 
-               <t t-call="portal.portal_searchbar">
-               <t t-set="title">Service Request</t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Service Request</t>
             </t>
-           <div id="wrap" class="oe_structure oe_empty">
-               <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
-                   <div class="container">
-                       <form action="/submit/request" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
-                           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                           <table style="border:0px; width:100%%; background-color:#D6EEEE; margin-top:5%%;">
-                               <group>
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                    <div class="container">
+                        <form action="/submit/request" method="post" enctype="multipart/form-data"
+                              class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <table style="border:0px; width:100%%; background-color:#D6EEEE; margin-top:5%%;">
+                                <group>
                                     <tr>
                                         <td>
                                             <group>
-                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%" for="studio1">
-                                                    <span class="s_website_form_label_content">Agency</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="studio1">
+                                                    <span class="s_website_form_label_content">Date Of Service</span>
+                                                    <span class="s_website_form_mark">*</span>
                                                 </label>
                                                 <div class="col-sm">
-                                                    <select name="agency" t-attf-class="form-control s_website_form_input" required="1">
-                                                        <option t-att-value="user_partner.id"><t t-esc="user_partner.name" /></option>
+                                                    <input id="dos" type="date"
+                                                           class="form-control s_website_form_input" name="dos"
+                                                           required="1"/>
+                                                </div>
+                                            </group>
+                                        </td>
+                                        <td>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">IMDG Code / Un No.</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="imdg_code" type="text"
+                                                           class="form-control s_website_form_input" name="imdg_code"
+                                                           required="1"/>
+                                                </div>
+                                            </group>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">Agency</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select name="agency"
+                                                            t-attf-class="form-control s_website_form_input"
+                                                            required="1">
+                                                        <option t-att-value="user_partner.id">
+                                                            <t t-esc="user_partner.name"/>
+                                                        </option>
                                                         <t t-foreach="agencies or []" t-as="agency">
                                                             <option t-att-value="agency.id">
-                                                                <t t-esc="agency.name" />
+                                                                <t t-esc="agency.name"/>
                                                             </option>
                                                         </t>
                                                     </select>
                                                 </div>
                                             </group>
+                                        </td>
+                                        <td>
                                             <group>
-                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%" for="studio1">
-                                                    <span class="s_website_form_label_content">Agent</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">Phone</span>
+                                                    <span class="s_website_form_mark">*</span>
                                                 </label>
                                                 <div class="col-sm">
-                                                    <select name="agent" t-attf-class="form-control s_website_form_input" required="1">
-                                                        <option t-att-value="current_user.id"><t t-esc="current_user.name" /></option>
+                                                    <input id="phone" type="text"
+                                                           class="form-control s_website_form_input" name="phone"
+                                                           required="1"/>
+                                                </div>
+                                            </group>
+                                        </td>
+                                    </tr>
+                                </group>
+                                <tr>
+                                    <td>
+                                        <group>
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 50%%" for="studio1">
+                                                    <span class="s_website_form_label_content">Agent</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select name="agent"
+                                                            t-attf-class="form-control s_website_form_input"
+                                                            required="1">
+                                                        <option t-att-value="current_user.id">
+                                                            <t t-esc="current_user.name"/>
+                                                        </option>
                                                         <t t-foreach="agents or []" t-as="agent">
                                                             <option t-att-value="agent.id">
-                                                                <t t-esc="agent.name" />
+                                                                <t t-esc="agent.name"/>
                                                             </option>
                                                         </t>
                                                     </select>
                                                 </div>
                                             </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
-                                                    <span class="s_website_form_label_content"> IMDG Code / Un No.</span>
-                                                    <span class="s_website_form_mark"> *</span>
-                                                </label>
-                                                <div class="col-sm">
-                                                    <input id="imdg_code" type="text" class="form-control s_website_form_input" name="imdg_code" required="1"/>
-                                                </div>
-                                            </group>
-                                            <group>
-                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
-                                                    <span class="s_website_form_label_content">Phone</span>
-                                                    <span class="s_website_form_mark"> *</span>
-                                                </label>
-                                                <div class="col-sm">
-                                                    <input id="phone" type="text" class="form-control s_website_form_input" name="phone" required="1"/>
-                                                </div>
-                                            </group>
-                                        </td>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 50%%" for="studio1">
+                                                <span class="s_website_form_label_content">Email</span>
+                                                <span class="s_website_form_mark">*</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input id="email" type="text" class="form-control s_website_form_input"
+                                                       name="email" required="1"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <br/>
+                            <h4>
+                                <p>
+                                    <b>Service Details</b>
+                                </p>
+                            </h4>
+                            <table style="border:0px; width:100%%; background-color:#D6EEEE;">
+                                <thead>
+                                    <tr class="active">
+                                        <th class="text-center">NO.</th>
+                                        <th class="text-center">Service</th>
+                                        <th class="text-center">Description</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Remarks</th>
                                     </tr>
-                               </group>
-                               <tr>
-                                   <td>
-                                       <group>
-                                           <label class="col-form-label col-sm-auto s_website_form_label" style="width: 50%%"  for="studio1">
-                                               <span class="s_website_form_label_content">Email</span>
-                                               <span class="s_website_form_mark"> *</span>
-                                           </label>
-                                           <div class="col-sm">
-                                               <input id="email" type="text" class="form-control s_website_form_input" name="email" required="1"/>
-                                           </div>
-                                       </group>
-                                   </td>
-                               </tr>
-                           </table>
-                           <br/>
-                           <h4><p><b>Service Details</b></p></h4>
-                           <table style="border:0px; width:100%%; background-color:#D6EEEE;">
-                               <thead>
-                                   <tr class="active">
-                                       <th class="text-center">NO.</th>
-                                       <th class="text-center">Service</th>
-                                       <th class="text-center">Description</th>
-                                       <th class="text-center">Quantity</th>
-                                       <th class="text-center">Remarks</th>
-                                   </tr>
-                               </thead>
-                                    <tr>
-                                        <td>
-                                            <b>1</b>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <select name="product_id_1" t-attf-class="form-control s_website_form_input" required="1">
-                                                        <option value=""><i>Please Select</i></option>
-                                                        <t t-foreach="products or []" t-as="product">
-                                                            <option t-att-value="product.id">
-                                                                <t t-esc="product.display_name" />
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="description_1" name="description_1" type="text" class="form-control s_website_form_input" required="1"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="quantity_1" name="quantity_1" type="number" class="form-control s_website_form_input" required="1"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="remarks_1" name="remarks_1" type="text" class="form-control s_website_form_input" required="1"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                    </tr>
-                               <tr>
-                                   <td>
-                                            <b>2</b>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <select name="product_id_2" t-attf-class="form-control s_website_form_input">
-                                                        <option value=""><i>Please Select</i></option>
-                                                        <t t-foreach="products or []" t-as="product">
-                                                            <option t-att-value="product.id">
-                                                                <t t-esc="product.display_name" />
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="description_2" name="description_2" type="text" class="form-control s_website_form_input" />
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="quantity_2" name="quantity_2" type="number" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="remarks_2" name="remarks_2" type="text" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                    </tr>
-                               <tr>
-                                   <td>
-                                            <b>3</b>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <select name="product_id_3" t-attf-class="form-control s_website_form_input">
-                                                        <option value=""><i>Please Select</i></option>
-                                                        <t t-foreach="products or []" t-as="product">
-                                                            <option t-att-value="product.id">
-                                                                <t t-esc="product.display_name" />
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="description_3" name="description_3" type="text" class="form-control s_website_form_input" />
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="quantity_3" name="quantity_3" type="number" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="remarks_3" name="remarks_3" type="text" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                    </tr>
-                               <tr>
-                                   <td>
-                                            <b>4</b>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <select name="product_id_4" t-attf-class="form-control s_website_form_input">
-                                                        <option value=""><i>Please Select</i></option>
-                                                        <t t-foreach="products or []" t-as="product">
-                                                            <option t-att-value="product.id">
-                                                                <t t-esc="product.display_name" />
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="description_4" name="description_4" type="text" class="form-control s_website_form_input" />
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="quantity_4" name="quantity_4" type="number" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="remarks_4" name="remarks_4" type="text" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                    </tr>
-                               <tr>
-                                   <td>
-                                            <b>5</b>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <select name="product_id_5" t-attf-class="form-control s_website_form_input">
-                                                        <option value=""><i>Please Select</i></option>
-                                                        <t t-foreach="products or []" t-as="product">
-                                                            <option t-att-value="product.id">
-                                                                <t t-esc="product.display_name" />
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="description_5" name="description_5" type="text" class="form-control s_website_form_input" />
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="quantity_5" name="quantity_5" type="number" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                        <td>
-                                            <group>
-                                                <div class="col-sm">
-                                                    <input id="remarks_5" name="remarks_5" type="text" class="form-control s_website_form_input"/>
-                                                </div>
-                                            </group>
-                                        </td>
-                                    </tr>
-                           </table>
-                           <div style="width:200px; margin-top:2%%;" class="form-group col-12 s_website_form_submit" data-name="Submit Button">
-                               <div class="s_website_form_label"/>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </div>
-                       </form>
-                   </div>
-               </section>
-           </div>
-       </t>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <b>1</b>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <select name="product_id_1"
+                                                        t-attf-class="form-control s_website_form_input" required="1">
+                                                    <option value="">
+                                                        <i>Please Select</i>
+                                                    </option>
+                                                    <t t-foreach="products or []" t-as="product">
+                                                        <option t-att-value="product.id">
+                                                            <t t-esc="product.display_name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="description_1" name="description_1" type="text"
+                                                       class="form-control s_website_form_input" required="1"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="quantity_1" name="quantity_1" type="number"
+                                                       class="form-control s_website_form_input" required="1"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="remarks_1" name="remarks_1" type="text"
+                                                       class="form-control s_website_form_input" required="1"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>2</b>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <select name="product_id_2"
+                                                        t-attf-class="form-control s_website_form_input">
+                                                    <option value="">
+                                                        <i>Please Select</i>
+                                                    </option>
+                                                    <t t-foreach="products or []" t-as="product">
+                                                        <option t-att-value="product.id">
+                                                            <t t-esc="product.display_name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="description_2" name="description_2" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="quantity_2" name="quantity_2" type="number"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="remarks_2" name="remarks_2" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>3</b>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <select name="product_id_3"
+                                                        t-attf-class="form-control s_website_form_input">
+                                                    <option value="">
+                                                        <i>Please Select</i>
+                                                    </option>
+                                                    <t t-foreach="products or []" t-as="product">
+                                                        <option t-att-value="product.id">
+                                                            <t t-esc="product.display_name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="description_3" name="description_3" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="quantity_3" name="quantity_3" type="number"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="remarks_3" name="remarks_3" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>4</b>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <select name="product_id_4"
+                                                        t-attf-class="form-control s_website_form_input">
+                                                    <option value="">
+                                                        <i>Please Select</i>
+                                                    </option>
+                                                    <t t-foreach="products or []" t-as="product">
+                                                        <option t-att-value="product.id">
+                                                            <t t-esc="product.display_name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="description_4" name="description_4" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="quantity_4" name="quantity_4" type="number"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="remarks_4" name="remarks_4" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>5</b>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <select name="product_id_5"
+                                                        t-attf-class="form-control s_website_form_input">
+                                                    <option value="">
+                                                        <i>Please Select</i>
+                                                    </option>
+                                                    <t t-foreach="products or []" t-as="product">
+                                                        <option t-att-value="product.id">
+                                                            <t t-esc="product.display_name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="description_5" name="description_5" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="quantity_5" name="quantity_5" type="number"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                    <td>
+                                        <group>
+                                            <div class="col-sm">
+                                                <input id="remarks_5" name="remarks_5" type="text"
+                                                       class="form-control s_website_form_input"/>
+                                            </div>
+                                        </group>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="width:200px; margin-top:2%%;" class="form-group col-12 s_website_form_submit"
+                                 data-name="Submit Button">
+                                <div class="s_website_form_label"/>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </t>
     </template>
 </odoo>

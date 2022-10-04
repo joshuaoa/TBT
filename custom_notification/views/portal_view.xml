@@ -49,30 +49,7 @@
 
                                     </t>
                             </t>
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </div>-->
         </template>
-
-<!--        <template id="display_notification_details" name="Display Notification Details">-->
-<!--            <t t-call="portal.portal_layout">-->
-<!--&lt;!&ndash;                <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <t t-call="portal.portal_back_in_edit_mode">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <t t-set="backend_url" t-value="'/web#model=custom.notification&amp;id=%s&amp;view_type=form' % (notification.id)"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </t>&ndash;&gt;-->
-<!--&lt;!&ndash;                </t>&ndash;&gt;-->
-<!--                <div class="oe_structure">-->
-<!--                    <div class="container">-->
-<!--                        <div class="card-body">-->
-<!--                            <h4><b>NOTIFICATION ID # <t t-esc="notification.notification_id"/></b> </h4>-->
-<!--                                <p><h4><t t-esc="notification.title"/> </h4></p>-->
-<!--                                <p><t t-esc="notification.notes"/></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </t>-->
-<!--        </template>-->
 
          <template id="display_notification_details" name="Notification Details">
             <t t-call="portal.portal_layout">
@@ -100,7 +77,7 @@
         </template>
 
 
-        <template id="portal_notifications" name="Show Notifications" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+        <template id="portal_notifications" name="Show Notifications" customize_show="True" inherit_id="portal.portal_my_home" priority="2">
             <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
                 <t t-call="portal.portal_docs_entry">
                     <t t-set="title">Notifications</t>

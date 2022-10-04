@@ -21,6 +21,7 @@
                         </div>
 						<group string="Agency Details">
 							<group>
+								<field name="dos"/>
 								<field name="agency"/>
 								<field name="imdg_code"/>
 								<field name="populated" invisible="1"/>
@@ -53,6 +54,7 @@
 			<field name="model">service.request</field>
 			<field name="arch" type="xml">
 				<tree default_order="id desc">
+					<field name="dos"/>
 					<field name="agency"/>
 					<field name="agent"/>
 					<field name="imdg_code"/>
