@@ -154,15 +154,15 @@
                                                 <div class="col-sm">
                                                     <select name="agency"
                                                             t-attf-class="form-control s_website_form_input"
-                                                            required="1">
+                                                            required="1" readonly="1">
                                                         <option t-att-value="user_partner.id">
                                                             <t t-esc="user_partner.name"/>
                                                         </option>
-                                                        <t t-foreach="agencies or []" t-as="agency">
-                                                            <option t-att-value="agency.id">
-                                                                <t t-esc="agency.name"/>
-                                                            </option>
-                                                        </t>
+<!--                                                        <t t-foreach="agencies or []" t-as="agency">-->
+<!--                                                            <option t-att-value="agency.id">-->
+<!--                                                                <t t-esc="agency.name"/>-->
+<!--                                                            </option>-->
+<!--                                                        </t>-->
                                                     </select>
                                                 </div>
                                             </group>
@@ -194,15 +194,15 @@
                                                 <div class="col-sm">
                                                     <select name="agent"
                                                             t-attf-class="form-control s_website_form_input"
-                                                            required="1">
+                                                            required="1" readonly="1">
                                                         <option t-att-value="current_user.id">
                                                             <t t-esc="current_user.name"/>
                                                         </option>
-                                                        <t t-foreach="agents or []" t-as="agent">
-                                                            <option t-att-value="agent.id">
-                                                                <t t-esc="agent.name"/>
-                                                            </option>
-                                                        </t>
+<!--                                                        <t t-foreach="agents or []" t-as="agent">-->
+<!--                                                            <option t-att-value="agent.id">-->
+<!--                                                                <t t-esc="agent.name"/>-->
+<!--                                                            </option>-->
+<!--                                                        </t>-->
                                                     </select>
                                                 </div>
                                             </group>
@@ -216,7 +216,7 @@
                                             </label>
                                             <div class="col-sm">
                                                 <input id="email" type="text" class="form-control s_website_form_input"
-                                                       name="email" required="1"/>
+                                                      t-att-value="current_user.email"  name="email" required="1" readonly="1"/>
                                             </div>
                                         </group>
                                     </td>
