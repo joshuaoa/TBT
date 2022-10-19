@@ -6,6 +6,6 @@ class ResPartner(models.Model):
 
     gpha_id = fields.Char(string="GPHA ID")
     agency = fields.Many2one('res.partner', string="Agency")
-    vat = fields.Char(string='TIN', index=True,
+    vat = fields.Char(string='TIN', index=True, required=True,
                       help="The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.")
     parent_id = fields.Many2one('res.partner', string='Related Company', related='agency', readonly=False, store=True, index=True)

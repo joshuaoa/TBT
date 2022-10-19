@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 
 class ServiceRequest(models.Model):
     _name = 'service.request'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Service Request'
     _rec_name = 'request_id'
 

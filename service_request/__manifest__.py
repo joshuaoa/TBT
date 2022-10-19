@@ -11,7 +11,7 @@
     A module that allows users to send their service requests
     """,
     "images": [],
-    "depends": ['product'],
+    "depends": ['product', 'mail'],
     "data": [
                 'data/sequence.xml',
                 'security/ir.model.access.csv',
