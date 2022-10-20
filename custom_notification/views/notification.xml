@@ -65,6 +65,7 @@
 		<!-- MENU ITEM -->
 	<menuitem id="custom_notification_menuitem"
 			  name="Notifications"
+			  web_icon="custom_notification,static/description/icon.png"
 			action="custom_notification_action"
 			groups="custom_notification.group_custom_notification"
 			sequence="10" />

@@ -85,6 +85,7 @@
 		<!-- MENU ITEM -->
 	<menuitem id="service_request_menuitem"
 			  name="Service Request"
+			  web_icon="service_request,static/description/icon.png"
 			action="service_request_action"
 			sequence="10" />
 
