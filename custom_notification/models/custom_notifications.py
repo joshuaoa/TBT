@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 
 class CustomNotification(models.Model):
     _name = 'custom.notification'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Custom Notification'
     _rec_name = 'notification_id'
 
