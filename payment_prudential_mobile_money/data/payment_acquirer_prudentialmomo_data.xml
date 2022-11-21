@@ -11,8 +11,11 @@
 <!--            <field name="company_id" ref="base.main_company"/>-->
             <field name="display_as">Payment by Momo - Prudential</field>
 <!--            <field name="redirect_form_view_id" ref="payment_payplug_button"/>-->
+<!--			<field name="redirect_form_view_id" ref="redirect_form"/>-->
             <field name="module_id" ref="base.module_payment_prudential_mobile_money"/>
 	        <field name="base_url">http://10.170.133.130:8080/MobileMoneyPayment/api/Transaction</field>
+	        <field name="momo_username">demo</field>
+	        <field name="momo_password">demo</field>
 	        <field name="description" type="html">
 	            <p>
 	                A payment gateway from Prudential to accept online payments via momo.
