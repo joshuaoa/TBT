@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="payment_acquirer_prudentialmomo" model="payment.acquirer">
+            <field name="name">Prudential Momo</field>
+			<field name="inline_form_view_id" ref="inline_form"/>
+            <field name="sequence">1</field>
+<!--            <field name="image_128" type="base64" file="payment_payplug/static/src/img/payment_payplug_icon.png"/>-->
+            <field name="provider">prudentialmomo</field>
+<!--            <field name="company_id" ref="base.main_company"/>-->
+            <field name="display_as">Payment by Momo - Prudential</field>
+<!--            <field name="redirect_form_view_id" ref="payment_payplug_button"/>-->
+            <field name="module_id" ref="base.module_payment_prudential_mobile_money"/>
+	        <field name="base_url">http://10.170.133.130:8080/MobileMoneyPayment/api/Transaction</field>
+	        <field name="description" type="html">
+	            <p>
+	                A payment gateway from Prudential to accept online payments via momo.
+	            </p>
+	            <ul class="list-inline">
+	                <li class="list-inline-item"><i class="fa fa-check"/> Online Payment</li>
+	            </ul>
+	        </field>
+        </record>
+
+	    <record id="payment_method_prudentialmomo" model="account.payment.method">
+	        <field name="name">Prudential Momo</field>
+	        <field name="code">prudentialmomo</field>
+	        <field name="payment_type">inbound</field>
+	    </record>
+
+    </data>
+</odoo>
