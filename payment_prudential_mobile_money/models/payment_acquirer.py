@@ -14,6 +14,8 @@ class PaymentAcquirer(models.Model):
     _inherit = 'payment.acquirer'
 
     provider = fields.Selection(selection_add=[('prudentialmomo', 'Prudential Momo')], ondelete={'prudentialmomo': 'set default'})
+    prudentialmomo_client_id = fields.Char(
+        string="Client ID", required_if_provider='prudentialmomo', groups='base.group_system')
     momo_username = fields.Char(
         string="Username", required_if_provider='prudentialmomo')
     momo_password = fields.Char(
@@ -29,7 +31,34 @@ class PaymentAcquirer(models.Model):
         else:
             return self.base_url
 
-    def _prudentialmomo_make_request( self, endpoint, payload=None, method='POST'):
+
+    def prudentialmomo_name_enquiry(self, endpoint, payload=None, method='POST'):
+        url = self.base_url + endpoint
+
+        self.ensure_one()
+
+        headers = {
+            'Username': self.momo_username,
+            'Password': self.momo_password,
+        }
+
+        try:
+            response = requests.request(method, url, headers=headers, timeout=60)
+            response.raise_for_status()
+        except requests.exceptions.ConnectionError:
+            _logger.exception("unable to reach endpoint at %s", url)
+            raise ValidationError("Prudential: " + _("Could not establish the connection to the API."))
+        except requests.exceptions.HTTPError as error:
+            _logger.exception(
+                "invalid API request at %s with data %s: %s", url, payload, error.response.text
+            )
+            raise ValidationError("Prudential: " + _("The communication with the API failed."))
+        return response.json()
+
+
+
+
+    def _prudentialmomo_debit_request(self, endpoint, payload=None, method='POST'):
         url = self.base_url + endpoint
 
         self.ensure_one()
