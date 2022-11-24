@@ -11,8 +11,6 @@
                            attrs="{'required':[('provider', '=', 'prudentialmomo'), ('state', '!=', 'disabled')], 'invisible': [('state', '=', 'disabled')]}"/>
                     <field name="momo_password"
                            attrs="{'required':[('provider', '=', 'prudentialmomo'), ('state', '!=', 'disabled')], 'invisible': [('state', '=', 'disabled')]}" password="1"/>
-                    <field name="prudentialmomo_client_id"
-                           attrs="{'required':[('provider', '=', 'prudentialmomo'), ('state', '!=', 'disabled')], 'invisible': [('state', '=', 'disabled')]}"/>
                     <field name="base_url"
                            attrs="{'required':[('provider', '=', 'prudentialmomo'), ('state', '!=', 'disabled')], 'invisible': [('state', '=', 'disabled')]}"/>
                 </group>

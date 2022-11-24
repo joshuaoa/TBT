@@ -21,7 +21,7 @@ class PaymentTransaction(models.Model):
             return res
 
         rendering_values = {
-            'clientId':self.acquirer_id.prudentialmomo_client_id,
+            'clientId':self.partner_id.name,
             'walletType': 'mtn',
             'senderName': self.partner_id.name,
             'senderNumber': self.partner_id.phone,
@@ -43,14 +43,8 @@ class PaymentTransaction(models.Model):
         if self.provider != 'prudentialmomo':
             return
 
-        data_for_enquiry = {
-            'clientId': self.acquirer_id.prudentialmomo_client_id,
-            'walletType': 'mtn',
-            'walletNumber': self.partner_id.phone,
-        }
-
         data = {
-            'clientId': self.acquirer_id.prudentialmomo_client_id,
+            'clientId': self.partner_id.name,
             'walletType': 'mtn',
             'senderName': self.partner_id.name,
             'senderNumber': self.partner_id.phone,
@@ -58,22 +52,11 @@ class PaymentTransaction(models.Model):
             'transactionId': self.reference,
             'remarks': 'Payment for ' + self.reference,
         }
-
-
-        enquiry_response = self.acquirer_id._prudentialmomo_name_enquiry(
-            endpoint='/WalletNameEnquiry',
-            payload=data_for_enquiry,
+        response_content = self.acquirer_id._prudentialmomo_make_request(
+            endpoint='/DebitWallet',
+            payload=data,
             method='POST'
         )
-
-        if enquiry_response["status"] == "0":
-            response_content = self.acquirer_id._prudentialmomo_debit_request(
-                endpoint='/DebitWallet',
-                payload=data,
-                method='POST'
-            )
-        else:
-            _logger.info("Name Enquiry response:\n%s",pprint.pformat(enquiry_response))
 
         # Handle the payment request response
         _logger.info("payment request response:\n%s", pprint.pformat(response_content))
@@ -86,6 +69,9 @@ class PaymentTransaction(models.Model):
             return tx
 
         reference = data.get('transactionId')
+        if not reference:
+            raise ValidationError("Prudential: " + _("Received data with missing merchant reference"))
+
         tx = self.search([('reference', '=', reference), ('provider', '=', 'prudentialmomo')])
 
         if not tx:
