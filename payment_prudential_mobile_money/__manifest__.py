@@ -5,7 +5,7 @@
     'depends': ['payment'],
     'data': [
         'views/payment_views.xml',
-        'views/payment_templates.xml',
+        # 'views/payment_templates.xml',
         'data/payment_acquirer_prudentialmomo_data.xml',
     ],
     'application': True,

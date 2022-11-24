@@ -29,6 +29,7 @@ class PrudentialMomoController(http.Controller):
             'state': acquirer_sudo.state,
             'Username': acquirer_sudo.momo_username,
             'Password': acquirer_sudo.momo_password,
+            'clientId': acquirer_sudo.prudentialmomo_client_id
         }
 
     @http.route('/payment/prudential/payment_methods', type='json', auth='public')
@@ -40,20 +41,37 @@ class PrudentialMomoController(http.Controller):
         # lang_code = (request.context.get('lang') or 'en-US').replace('_', '-')
         # shopper_reference = partner_sudo and f'ODOO_PARTNER_{partner_sudo.id}'
         data = {
-            'clientId': partner_sudo,
+            'clientId': acquirer_sudo.prudentialmomo_client_id,
             'walletType': 'mtn',
-            'senderName': partner_sudo,
+            'senderName': partner_sudo.name,
             'senderNumber': partner_sudo.phone,
             'amount': amount,
             'transactionId': transaction_sudo.reference,
             'remarks': 'Payment for ' + transaction_sudo.reference,
             'channel': 'Web',
         }
-        response_content = acquirer_sudo._prudentialmomo_make_request(
-            endpoint='/DebitWallet',
-            payload=data,
+
+        data_for_enquiry = {
+            'clientId': self.acquirer_id.prudentialmomo_client_id,
+            'walletType': 'mtn',
+            'walletNumber': self.partner_id.phone,
+        }
+
+        enquiry_response = acquirer_sudo._prudentialmomo_name_enquiry(
+            endpoint='/WalletNameEnquiry',
+            payload=data_for_enquiry,
             method='POST'
         )
+
+        if enquiry_response["status"] == "0":
+            response_content = self.acquirer_id._prudentialmomo_debit_request(
+                endpoint='/DebitWallet',
+                payload=data,
+                method='POST'
+            )
+        else:
+            _logger.info("Name Enquiry response:\n%s", pprint.pformat(enquiry_response))
+
         _logger.info("paymentMethods request response:\n%s", pprint.pformat(response_content))
         return response_content
 
