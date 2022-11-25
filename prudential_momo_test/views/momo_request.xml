@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="momo_request_form_view" model="ir.ui.view">
+            <field name="name">momo_request.form</field>
+            <field name="model">momo.request</field>
+            <field name="arch" type="xml">
+                <form string="Momo Request">
+                    <header>
+                        <button name="action_send_name_enquiry_request" type="object" string="Send Request" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="response"/>
+                                <field name="status_code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="momo_request_tree_view" model="ir.ui.view">
+            <field name="name">.momo_request.tree</field>
+            <field name="model">momo.request</field>
+            <field name="arch" type="xml">
+                <tree string="Momo Request">
+                    <field name="response"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="momo_request_act_window" model="ir.actions.act_window">
+            <field name="name">Momo Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">momo.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Momo Request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Momo Request" id="momo_request_menu" action="momo_request_act_window"/>
+    </data>
+</odoo>
