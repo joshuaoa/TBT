@@ -33,7 +33,7 @@ class MomoRequest(models.Model):
         headers = {
             "Username": "momoapi.user.tbt",
             "Password": "Temp123$",
-            'Content-Type':'application/json'
+            "Content-Type": "application/json"
         }
 
         # response = requests.post(url, data=payload, auth=auth)
