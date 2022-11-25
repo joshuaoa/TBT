@@ -15,6 +15,7 @@ class MomoRequest(models.Model):
     _description = 'Description'
 
     response = fields.Text(string="Response")
+    response_json = fields.Text(string="Response Json")
     status_code = fields.Char(string="Status Code")
 
     def action_send_name_enquiry_request(self):
@@ -39,5 +40,6 @@ class MomoRequest(models.Model):
         response = requests.request("POST", url, headers=headers, data=payload)
         _logger.info(response.json)
 
-        self.response = response.json
+        self.response = response.text
         self.status_code = response.status_code
+        self.response_json = response.json
