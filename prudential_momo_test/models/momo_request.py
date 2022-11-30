@@ -17,7 +17,7 @@ class MomoRequest(models.Model):
     response = fields.Text(string="Response")
     response_json = fields.Text(string="Response Json")
     status_code = fields.Char(string="Status Code")
-    base_url = fields.Char(string="Base Url")
+    base_url = fields.Char(string="Url")
 
     def action_send_name_enquiry_request(self):
         url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
