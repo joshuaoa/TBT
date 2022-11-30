@@ -17,9 +17,10 @@ class MomoRequest(models.Model):
     response = fields.Text(string="Response")
     response_json = fields.Text(string="Response Json")
     status_code = fields.Char(string="Status Code")
+    base_url = fields.Char(string="Base Url")
 
     def action_send_name_enquiry_request(self):
-        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPayment/api/Transaction/WalletNameEnquiry'
+        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
         username = "momoapi.user.tbt"
         password = "Temp123$"
         auth = HTTPBasicAuth(username, password)
@@ -33,13 +34,14 @@ class MomoRequest(models.Model):
         headers = {
             "Username": "momoapi.user.tbt",
             "Password": "Temp123$",
-            'Content-Type':'application/json'
+            "Content-Type": "application/json"
         }
 
         # response = requests.post(url, data=payload, auth=auth)
         response = requests.request("POST", url, headers=headers, data=payload)
         _logger.info(response.json)
 
+        self.base_url = url
         self.response = response.text
         self.status_code = response.status_code
         self.response_json = response.json
