@@ -38,7 +38,7 @@ class MomoRequest(models.Model):
         }
 
         # response = requests.post(url, data=payload, auth=auth)
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("POST", url, auth=(username, password), data=payload)
         _logger.info(response.json)
 
         self.base_url = url
