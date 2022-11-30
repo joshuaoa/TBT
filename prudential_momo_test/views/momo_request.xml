@@ -13,6 +13,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="base_url"/>
                                 <field name="response"/>
                                 <field name="response_json"/>
                                 <field name="status_code"/>
