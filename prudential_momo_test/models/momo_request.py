@@ -19,7 +19,7 @@ class MomoRequest(models.Model):
     status_code = fields.Char(string="Status Code")
 
     def action_send_name_enquiry_request(self):
-        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPayment/api/Transaction/WalletNameEnquiry'
+        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
         username = "momoapi.user.tbt"
         password = "Temp123$"
         auth = HTTPBasicAuth(username, password)
