@@ -32,13 +32,14 @@ class MomoRequest(models.Model):
         })
 
         headers = {
+            "Authorization": "Basic bW9tb2FwaS51c2VyLnRidDpUZW1wMTIzJA==",
             "Username": "momoapi.user.tbt",
             "Password": "Temp123$",
             "Content-Type": "application/json"
         }
 
         # response = requests.post(url, data=payload, auth=auth)
-        response = requests.request("POST", url, auth=auth, data=payload)
+        response = requests.request("POST", url, headers=headers, data=payload)
         _logger.info(response.json)
 
         self.base_url = url
