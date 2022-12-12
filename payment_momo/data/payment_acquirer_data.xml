@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_momo" model="payment.acquirer">
+        <field name="name">Momo</field>
+        <field name="provider">momo</field>
+        <field name="inline_form_view_id" ref="inline_form"/>
+        <field name="display_as">Prudential - Pay by Momo</field>
+        <field name="prudential_momo_username">momoapi.user.tbt</field>
+        <field name="prudential_momo_password">Temp123$</field>
+        <field name="prudential_momo_auth_token">Basic bW9tb2FwaS51c2VyLnRidDpUZW1wMTIzJA==</field>
+        <field name="prudential_momo_client_id">33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A</field>
+        <field name="support_authorization">False</field>
+        <field name="support_fees_computation">False</field>
+        <field name="support_refund"></field>
+        <field name="support_tokenization">True</field>
+        <field name="allow_tokenization">True</field>
+        <field name="description" type="html">
+	            <p>
+	                A payment gateway from Prudential to accept online payments via momo using the Prudential Bank API.
+	            </p>
+	            <ul class="list-inline">
+	                <li class="list-inline-item"><i class="fa fa-check"/> Online Momo Payment</li>
+	                <li class="list-inline-item"><i class="fa fa-check"/> Mtn</li>
+	                <li class="list-inline-item"><i class="fa fa-check"/> Vodafone</li>
+	                <li class="list-inline-item"><i class="fa fa-check"/> Airteltigo</li>
+	            </ul>
+        </field>
+    </record>
+
+    <record id="payment_method_momo" model="account.payment.method">
+        <field name="name">Momo</field>
+        <field name="code">momo</field>
+        <field name="payment_type">inbound</field>
+    </record>
+
+</odoo>

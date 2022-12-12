@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="inline_form">
+        <div t-attf-id="test-container-{{acquirer_id}}">
+            <div class="row mt-8">
+                <div class="form-group col-lg-12">
+                    <input name="acquirer_id" type="hidden" id="acquirer_id" t-att-value="id"/>
+                    <input name="partner_id" type="hidden" t-att-value="partner_id"/>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label t-attf-for="wallet_number" class="col-form-label">Wallet Number</label>
+                    <input type="text" required="1" name="wallet_number" id="wallet_number" class="form-control"
+                           placeholder="Eg. 233000000000"/>
+                    <label t-attf-for="wallet_type" class="col-form-label">Wallet Type</label>
+                    <select id="wallet_type" required="1" class="form-control">
+                        <option value="mtn">mtn</option>
+                        <option value="vodafone">vodafone</option>
+                        <option value="airteltigo">airteltigo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>
