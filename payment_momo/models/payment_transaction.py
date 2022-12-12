@@ -97,11 +97,14 @@ class PaymentTransaction(models.Model):
         if self.provider != "momo":
             return
 
-        if 'transactionId' in data:
-            self.acquirer_reference = data.get('transactionId')
+        response_content = data.get('response')
+
+        self.acquirer_reference = response_content.get('details').get('cb_reference')
+
+
 
         # Handle the payment state
-        payment_state = data.get('status')
+        payment_state = response_content.get('status')
         if not payment_state:
             raise ValidationError("Prudential: " + _("Received data with missing payment state."))
 
@@ -123,12 +126,3 @@ class PaymentTransaction(models.Model):
                 "Prudential: " + _("Received data with invalid payment state: %s", payment_state)
             )
 
-        # if self.tokenize:
-        #     token = self.env['payment.token'].create({
-        #         'acquirer_id': self.acquirer_id.id,
-        #         'name': payment_utils.build_token_name(payment_details_short=data['cc_summary']),
-        #         'partner_id': self.partner_id.id,
-        #         'acquirer_ref': 'fake acquirer reference',
-        #         'verified': True,
-        #     })
-        #     self.token_id = token.id
