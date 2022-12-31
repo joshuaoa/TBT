@@ -4,6 +4,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 from odoo.exceptions import ValidationError
+import pathlib
 
 
 _logger = logging.getLogger(__name__)
@@ -18,6 +19,7 @@ class MomoRequest(models.Model):
     response_json = fields.Text(string="Response Json")
     status_code = fields.Char(string="Status Code")
     base_url = fields.Char(string="Url")
+    path = fields.Char(string="Path")
 
     def action_send_name_enquiry_request(self):
         url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
@@ -41,8 +43,10 @@ class MomoRequest(models.Model):
         # response = requests.post(url, data=payload, auth=auth)
         response = requests.request("POST", url, headers=headers, data=payload)
         _logger.info(response.json)
+        path = pathlib.Path(__file__).parent.resolve()
 
         self.base_url = url
         self.response = response.text
         self.status_code = response.status_code
         self.response_json = response.json
+        self.path = path

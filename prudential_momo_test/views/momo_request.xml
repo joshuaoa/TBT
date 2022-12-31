@@ -17,6 +17,7 @@
                                 <field name="response"/>
                                 <field name="response_json"/>
                                 <field name="status_code"/>
+                                <field name="path"/>
                             </group>
                         </group>
                     </sheet>
