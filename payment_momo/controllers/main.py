@@ -26,8 +26,12 @@ class PaymentTestController(http.Controller):
         wallet_type = str(kw.get('walletType'))
 
         tx_sudo = request.env['payment.transaction'].sudo().search([('reference', '=', reference)])
+        username = tx_sudo.acquirer_id.prudential_momo_username
+        client_id = tx_sudo.acquirer_id.prudential_momo_client_id
+        password = tx_sudo.acquirer_id.prudential_momo_password
+        auth_token = tx_sudo.acquirer_id.prudential_momo_auth_token
         payload = json.dumps({
-            "clientId": "33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A",
+            "clientId": client_id,
             "walletType": wallet_type,
             "walletNumber": wallet_number,
         })
@@ -35,9 +39,9 @@ class PaymentTestController(http.Controller):
         url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
         url_debit = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/DebitWallet'
         headers = {
-            'Authorization': 'Basic bW9tb2FwaS51c2VyLnRidDpUZW1wMTIzJA==',
-            'Username': 'momoapi.user.tbt',
-            'Password': 'Temp123$',
+            'Authorization': auth_token,
+            'Username': username,
+            'Password': password,
             'Content-Type': "application/json",
         }
         try:
@@ -55,7 +59,7 @@ class PaymentTestController(http.Controller):
             raise ValidationError("Prudential: " + "The communication with the API failed.")
 
         payload_debit = json.dumps({
-            "clientId": "33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A",
+            "clientId": client_id,
             "walletType": wallet_type,
             "walletNumber": wallet_number,
             "walletName": enquiry_response_json["accountName"],

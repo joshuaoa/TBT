@@ -15,69 +15,7 @@ _logger = logging.getLogger(__name__)
 class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'
 
-    def _send_payment_request(self):
-        super()._send_payment_request()
-        if self.provider != 'momo':
-            return
-
-        payload = json.dumps({
-            "clientId": "33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A",
-            "walletType": 'mtn',
-            "walletNumber": "233557666857",
-        })
-
-        payload_debit = {
-            "clientId": "33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A",
-            "walletType": 'mtn',
-            "walletNumber": "233557666857",
-            "walletName": "",
-            'amount': self.amount,
-            'transactionId': self.reference,
-            'remarks': 'Payment for ' + self.reference,
-        }
-
-        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
-        url_debit = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/DebitWallet'
-        headers = {
-            'Authorization': 'Basic bW9tb2FwaS51c2VyLnRidDpUZW1wMTIzJA==',
-            'Username': 'momoapi.user.tbt',
-            'Password': 'Temp123$',
-            'Content-Type': "application/json",
-        }
-
-        try:
-            enquiry_response = requests.request('POST', url, headers=headers, data=payload, timeout=60)
-            enquiry_response.raise_for_status()
-        except requests.exceptions.ConnectionError:
-            _logger.exception("unable to reach endpoint at %s", url)
-            raise ValidationError("Prudential: " + _("Could not establish the connection to the API."))
-        except requests.exceptions.HTTPError as error:
-            _logger.exception(
-                "invalid API request at %s with data %s: %s", url, payload,
-            )
-            raise ValidationError("Prudential: " + _("The communication with the API failed."))
-        enquiry_response_json = json.loads(enquiry_response.text)
-
-        if enquiry_response_json["status"] == "0":
-            try:
-                debit_response = requests.request('POST', url_debit, headers=headers, data=payload_debit, timeout=60)
-                debit_response.raise_for_status()
-            except requests.exceptions.ConnectionError:
-                _logger.exception("unable to reach endpoint at %s", url_debit)
-                raise ValidationError("Prudential: " + _("Could not establish the connection to the API."))
-            except requests.exceptions.HTTPError as error:
-                _logger.exception(
-                    "invalid API request at %s with data %s: %s", url_debit, payload,
-                )
-                raise ValidationError("Prudential: " + _("The communication with the API failed."))
-
-            debit_response_json = json.loads(debit_response.text)
-            feedback_data = {'reference': self.reference, 'response': debit_response_json}
-            _logger.info(f"Debit Wallet response:\n, {debit_response.text}")
-
-            _logger.info(f"Name Enquiry response:\n, {enquiry_response.text}")
-            self._handle_feedback_data('test', feedback_data)
-
+    
     @api.model
     def _get_tx_from_feedback_data(self, provider, data):
         tx = super()._get_tx_from_feedback_data(provider, data)
