@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_prudentialcard" model="payment.acquirer">
+        <field name="name">Prudential Card</field>
+        <field name="provider">prudentialcard</field>
+        <field name="display_as">Prudential - Pay by Card</field>
+        <field name="base_url">https://acs2test.quipugmbh.com/Exec</field>
+        <field name="prudential_card_merchant_id">TEST_ECOM453</field>
+        <field name="support_authorization">True</field>
+        <field name="support_fees_computation">False</field>
+        <field name="support_refund"></field>
+        <field name="support_tokenization">True</field>
+        <field name="allow_tokenization">True</field>
+        <field name="description" type="html">
+	            <p>
+	                A payment gateway from Prudential to accept online payments via card using the Prudential Bank API.
+	            </p>
+	            <ul class="list-inline">
+	                <li class="list-inline-item"><i class="fa fa-check"/> Online Card Payment</li>
+	            </ul>
+        </field>
+    </record>
+
+    <record id="payment_method_prudentialcard" model="account.payment.method">
+        <field name="name">Prudential Card</field>
+        <field name="code">prudentialcard</field>
+        <field name="payment_type">inbound</field>
+    </record>
+
+</odoo>
