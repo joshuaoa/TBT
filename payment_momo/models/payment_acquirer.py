@@ -16,6 +16,8 @@ class PaymentAcquirer(models.Model):
         string="Password", required_if_provider='momo', groups='base.group_system')
     prudential_momo_auth_token = fields.Char(
         string="Auth Token", required_if_provider='momo', groups='base.group_system')
+    prudential_momo_base_url = fields.Char(
+        string="Base Url", required_if_provider='momo', groups='base.group_system')
 
     def _get_default_payment_method_id(self):
         self.ensure_one()

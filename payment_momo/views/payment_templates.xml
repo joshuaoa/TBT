@@ -10,6 +10,7 @@
                     <field name="prudential_momo_client_id" attrs="{'required':[('provider', '=', 'momo'), ('state', '!=', 'disabled')]}"/>
                     <field name="prudential_momo_username" attrs="{'required':[ ('provider', '=', 'momo'), ('state', '!=', 'disabled')]}"/>
                     <field name="prudential_momo_password" password="True" attrs="{'required':[ ('provider', '=', 'momo'), ('state', '!=', 'disabled')]}"/>
+                    <field name="prudential_momo_base_url" attrs="{'required':[ ('provider', '=', 'momo'), ('state', '!=', 'disabled')]}"/>
                     <field name="prudential_momo_auth_token" password="True" attrs="{'required':[ ('provider', '=', 'momo'), ('state', '!=', 'disabled')]}"/>
                 </group>
             </xpath>

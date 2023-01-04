@@ -8,6 +8,7 @@
         <field name="display_as">Prudential - Pay by Momo</field>
         <field name="prudential_momo_username">momoapi.user.tbt</field>
         <field name="prudential_momo_password">Temp123$</field>
+        <field name="prudential_momo_base_url">https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction</field>
         <field name="prudential_momo_auth_token">Basic bW9tb2FwaS51c2VyLnRidDpUZW1wMTIzJA==</field>
         <field name="prudential_momo_client_id">33D00BAF-04BD-4EE3-BCC6-59AB0AD8C28A</field>
         <field name="support_authorization">False</field>

@@ -30,14 +30,17 @@ class PaymentTestController(http.Controller):
         client_id = tx_sudo.acquirer_id.prudential_momo_client_id
         password = tx_sudo.acquirer_id.prudential_momo_password
         auth_token = tx_sudo.acquirer_id.prudential_momo_auth_token
+        base_url = tx_sudo.acquirer_id.prudential_momo_base_url
         payload = json.dumps({
             "clientId": client_id,
             "walletType": wallet_type,
             "walletNumber": wallet_number,
         })
 
-        url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
-        url_debit = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/DebitWallet'
+        # url = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/WalletNameEnquiry'
+        url = base_url + '/WalletNameEnquiry'
+        # url_debit = 'https://digihub.prudentialbank.com.gh/MobileMoneyPaymentTest/api/Transaction/DebitWallet'
+        url_debit = base_url + '/DebitWallet'
         headers = {
             'Authorization': auth_token,
             'Username': username,
